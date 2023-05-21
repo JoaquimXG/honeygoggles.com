@@ -10,7 +10,7 @@
 	}
 </script>
 
-<div on:click={handleClick} on:keydown={handleClick} class="group bg-white relative cursor-pointer">
+<div on:click={handleClick} on:keydown={handleClick} tabindex="0" class="group bg-white relative cursor-pointer">
 	<img class="block group-hover:opacity-30 transition-opacity" {src} {alt} />
 	<div
 		class="absolute opacity-0 group-hover:opacity-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"

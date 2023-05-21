@@ -1,5 +1,5 @@
 <script lang="ts">
-	import GalleryImage from "./GalleryImage.svelte";
+	import GalleryImage from './GalleryImage.svelte';
 
 	export let images: string[];
 
@@ -18,26 +18,26 @@
 		{
 			columns: 4,
 			imageColumns: splitToNChunks(images, 4),
-			breakpointMin: 'xl',
+			breakpointMin: 'xl:flex',
 			breakpointMax: null
 		},
 		{
 			columns: 3,
 			imageColumns: splitToNChunks(images, 3),
-			breakpointMin: 'lg',
-			breakpointMax: 'xl'
+			breakpointMin: 'lg:flex',
+			breakpointMax: 'xl:hidden'
 		},
 		{
 			columns: 2,
 			imageColumns: splitToNChunks(images, 2),
-			breakpointMin: 'sm',
-			breakpointMax: 'lg'
+			breakpointMin: 'sm:flex',
+			breakpointMax: 'lg:hidden'
 		},
 		{
 			columns: 1,
 			imageColumns: [images],
 			breakpointMin: null,
-			breakpointMax: 'sm'
+			breakpointMax: 'sm:hidden'
 		}
 	];
 </script>
@@ -47,11 +47,11 @@
 	{#each columnConfigs as conf}
 		<div
 			class="
-        {conf.breakpointMin ? `hidden ${conf.breakpointMin}:flex ` : ''}
-        {conf.breakpointMax ? `${conf.breakpointMax}:hidden` : ''} gap-2"
+        {conf.breakpointMin ? `hidden ${conf.breakpointMin} ` : ''}
+        {conf.breakpointMax ? conf.breakpointMax : ''} gap-2"
 		>
 			{#each conf.imageColumns as imageColumn}
-				<div class="flex flex-col gap-2" tabindex="0">
+				<div class="flex flex-col gap-2">
 					{#each imageColumn as image}
 						<GalleryImage {image} alt="TODO" />
 					{/each}
