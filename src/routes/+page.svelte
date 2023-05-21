@@ -1,4 +1,6 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+	import Gallery from "$lib/components/Gallery.svelte";
+  import images from "./images.js"
+</script>
 
-<button class="btn">Test</button>
+<Gallery images={images}/>

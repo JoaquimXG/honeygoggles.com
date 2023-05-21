@@ -15,8 +15,8 @@
 <div class="mx-auto p-6">
 	<div class="navbar bg-base-100">
 		<div class="navbar-start">
+			<Logo />
 			<div class="hidden md:flex">
-				<Logo />
 				{#each menu as menuItem}
 					{#if !menuItem.hideMobile}
 						<NavLink href={menuItem.href}>{menuItem.text}</NavLink>

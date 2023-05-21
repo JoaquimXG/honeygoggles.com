@@ -2,5 +2,6 @@
   "svelte.plugin.svelte.compilerWarnings": {
     "a11y-no-noninteractive-tabindex": "ignore",
     "a11y-label-has-associated-control": "ignore"
-  }
+  },
+  "ansible.python.interpreterPath": "/bin/python3.10"
 }
