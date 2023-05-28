@@ -85,7 +85,7 @@
 			{#each conf.imageColumns as imageColumn}
 				<div class="flex flex-col gap-2">
 					{#each imageColumn as image}
-						<a href={image} on:click={(e) => handleSelect(image, 'TODO', e)}
+						<a href="/images/{image}" on:click={(e) => handleSelect(image, 'TODO', e)}
 							><GalleryImage {image} alt="TODO" /></a
 						>
 					{/each}
