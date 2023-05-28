@@ -1,0 +1,33 @@
+name: 'Build And Upload'
+description: 'Builds the site and uploads artifact if required'
+inputs:
+  upload_condition:
+    description: 'Condition for when to upload an artifact'
+    required: true
+    default: 'false'
+  upload_name:
+    description: 'Name of artifact'
+    required: false
+    default: 'public'
+  upload_path:
+    description: 'Artifact upload path'
+    required: false
+    default: 'public'
+runs:
+  using: "composite"
+  steps:
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+        # cache: 'yarn' # Not required as only running on a single version
+    - run: yarn --non-interactive --frozen-lockfile
+      shell: bash
+    - run: yarn run build
+      shell: bash
+    - uses: actions/upload-artifact@v2
+      if: ${{ inputs.upload_condition }}
+      with:
+        name: ${{ inputs.upload_name }}
+        path: ${{ inputs.upload_path }}
+

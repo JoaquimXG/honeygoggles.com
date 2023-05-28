@@ -1,0 +1,30 @@
+
+name: 'Deploy'
+description: 'Deploy to S3 and invalidate cloudfront cache'
+inputs:
+  region:
+    description: 'Bucket region'
+    required: true
+  bucket:
+    description: 'Bucket'
+    required: false
+  distribution_id:
+    description: 'Distribution id'
+    required: false
+runs:
+  using: composite
+  steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: public
+        path: public
+    - uses: reggionick/s3-deploy@v3
+      with:
+        folder: public
+        bucket: ${{ inputs.bucket }}
+        bucket-region: ${{ inputs.region}}
+        dist-id: ${{ inputs.distribution_id }}
+        invalidation: /*
+        delete-removed: true
+        no-cache: true
+        filesToInclude: ".*/*,*/*,**"

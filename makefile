@@ -70,7 +70,7 @@ refresh-cert:
 
 .PHONY: cert
 cert:
-	certbot certonly --non-interactive --agree-tos --dns-route53 -d *.${DOMAIN} -d ${DOMAIN} --email ${CERT_EMAIL} --work-dir ${CERT_DIR} --config-dir ${CERT_DIR} --logs-dir ${CERT_DIR}
+	certbot certonly --rsa-key-size 2048 --key-type rsa --non-interactive --agree-tos --dns-route53 -d *.${DOMAIN} -d ${DOMAIN} --email ${CERT_EMAIL} --work-dir ${CERT_DIR} --config-dir ${CERT_DIR} --logs-dir ${CERT_DIR}
 
 .PHONY: upload-cert
 upload-cert:
