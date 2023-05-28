@@ -16,8 +16,8 @@ runs:
   steps:
     - uses: actions/download-artifact@v2
       with:
-        name: public
-        path: public
+        name: build
+        path: build
     - uses: reggionick/s3-deploy@v3
       with:
         folder: build
