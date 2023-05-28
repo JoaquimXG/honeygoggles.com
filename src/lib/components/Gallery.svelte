@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Image } from '$lib/types/Image';
+	import type Image from '$lib/types/Image';
 	import GalleryImage from './GalleryImage.svelte';
 	import GalleryModal from './GalleryModal.svelte';
 
@@ -79,7 +79,7 @@
 				<div class="flex flex-col gap-2">
 					{#each imageColumn as image}
 						<a href="/images/{image.name}" on:click={(e) => handleSelect(image, 'TODO', e)}
-							><GalleryImage {image}/></a
+							><GalleryImage {image} /></a
 						>
 					{/each}
 				</div>

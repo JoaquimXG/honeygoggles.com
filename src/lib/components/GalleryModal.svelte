@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Image } from '$lib/types/Image';
+	import type Image from '$lib/types/Image';
 	import GalleryModalArrow from './GalleryModalArrow.svelte';
 
 	export let imageIndex: number;
