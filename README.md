@@ -1,3 +1,6 @@
 # TODO
 
-- Optimize fonts and css in app.html
+- Optimize fonts and css
+- Image procesing
+- Blog page
+- About page
