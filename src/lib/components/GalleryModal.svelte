@@ -1,15 +1,17 @@
 <script lang="ts">
+	import type { Image } from '$lib/types/Image';
 	import GalleryModalArrow from './GalleryModalArrow.svelte';
+
 	export let imageIndex: number;
 	export let alt: string;
 	export let open: boolean;
-	export let images: string[];
+	export let images: Image[];
 
 	$: showLeft = imageIndex > 0;
 	$: showRight = imageIndex < images.length - 1;
 
 	const IMAGE_FOLDER = '/images/';
-	$: src = IMAGE_FOLDER + images[imageIndex];
+	$: src = IMAGE_FOLDER + images[imageIndex].name;
 
 	const close = () => {
 		open = false;
@@ -38,7 +40,11 @@
 		direction="left"
 		bind:show={showLeft}
 	/>
-	<div on:click|stopPropagation on:keydown|stopPropagation class="modal-box p-2 relative max-h-4/5">
+	<div
+		on:click|stopPropagation
+		on:keydown|stopPropagation
+		class="cursor-default modal-box p-2 relative max-h-4/5"
+	>
 		<img {src} {alt} class="rounded-lg h-full" />
 	</div>
 	<GalleryModalArrow

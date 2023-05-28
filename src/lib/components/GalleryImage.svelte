@@ -1,9 +1,11 @@
 <script lang="ts">
-	export let image: string;
+	import type { Image } from '$lib/types/Image';
+
+	export let image: Image;
 	export let alt: string;
 
 	const IMAGE_FOLDER = '/images/';
-	const src = IMAGE_FOLDER + image;
+	const src = IMAGE_FOLDER + image.name;
 </script>
 
 <div class="group bg-white relative cursor-pointer">

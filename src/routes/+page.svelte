@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Gallery from '$lib/components/Gallery.svelte';
-	import images from './images.js';
-	let _images = images.sort();
+	import allImages from '$lib/config/images.js';
+	import groups from '$lib/config/imageGroups.js';
 </script>
 
-<Gallery images={_images} />
+<Gallery {allImages} selection={groups.home} />
