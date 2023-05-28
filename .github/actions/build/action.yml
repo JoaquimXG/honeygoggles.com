@@ -8,11 +8,11 @@ inputs:
   upload_name:
     description: 'Name of artifact'
     required: false
-    default: 'public'
+    default: 'build'
   upload_path:
     description: 'Artifact upload path'
     required: false
-    default: 'public'
+    default: 'build'
 runs:
   using: "composite"
   steps:
