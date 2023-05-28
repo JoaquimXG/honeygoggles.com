@@ -20,7 +20,7 @@ runs:
         path: public
     - uses: reggionick/s3-deploy@v3
       with:
-        folder: public
+        folder: build
         bucket: ${{ inputs.bucket }}
         bucket-region: ${{ inputs.region}}
         dist-id: ${{ inputs.distribution_id }}
