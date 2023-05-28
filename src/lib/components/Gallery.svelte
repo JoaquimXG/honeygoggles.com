@@ -1,15 +1,27 @@
 <script lang="ts">
 	import GalleryImage from './GalleryImage.svelte';
+	import GalleryModal from './GalleryModal.svelte';
 
 	export let images: string[];
 
-	const IMAGE_FOLDER = '/images/';
+	// function splitToNChunks(array: string[], n: number): string[][] {
+	// 	let copy = [...array];
+	// 	let result: string[][] = [];
+	// 	for (let i = n; i > 0; i--) {
+	// 		result.push(copy.splice(0, Math.ceil(copy.length / i)));
+	// 	}
+	// 	return result;
+	// }
 
 	function splitToNChunks(array: string[], n: number): string[][] {
 		let copy = [...array];
 		let result: string[][] = [];
-		for (let i = n; i > 0; i--) {
-			result.push(copy.splice(0, Math.ceil(copy.length / i)));
+		for (let i = 0; i < n; i++) {
+			let chunk: string[] = [];
+			for (let j = i; j < copy.length; j = j + n) {
+				chunk.push(copy[j]);
+			}
+			result.push(chunk);
 		}
 		return result;
 	}
@@ -40,9 +52,29 @@
 			breakpointMax: 'sm:hidden'
 		}
 	];
+
+	let modalImage = '';
+	let modalAlt = '';
+	let modalOpen = false;
+	let modalImageIndex = 0;
+	function handleSelect(image: string, alt: string, e: Event) {
+		/**
+		 * Progressive enhancement
+		 *  If JavaScript is enabled, when the image is selected we open a model to flick through images
+		 *  If JavaScript is disabled, we just open the link for the image
+		 */
+		e.preventDefault();
+		modalOpen = false;
+		if (e.type === 'keydown' && (e as KeyboardEvent).key !== 'Enter') return;
+		modalAlt = alt;
+		modalImage = image;
+		modalImageIndex = images.indexOf(image);
+		modalOpen = true;
+	}
 </script>
 
-<!-- Flex columns using columns variable-->
+<GalleryModal {images} bind:imageIndex={modalImageIndex} alt={modalAlt} bind:open={modalOpen} />
+
 <div class="mt-6">
 	{#each columnConfigs as conf}
 		<div
@@ -53,7 +85,9 @@
 			{#each conf.imageColumns as imageColumn}
 				<div class="flex flex-col gap-2">
 					{#each imageColumn as image}
-						<GalleryImage {image} alt="TODO" />
+						<a href={image} on:click={(e) => handleSelect(image, 'TODO', e)}
+							><GalleryImage {image} alt="TODO" /></a
+						>
 					{/each}
 				</div>
 			{/each}

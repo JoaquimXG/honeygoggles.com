@@ -4,17 +4,13 @@
 
 	const IMAGE_FOLDER = '/images/';
 	const src = IMAGE_FOLDER + image;
-
-	function handleClick() {
-		console.log('clicked');
-	}
 </script>
 
-<div on:click={handleClick} on:keydown={handleClick} tabindex="0" class="group bg-white relative cursor-pointer">
+<div class="group bg-white relative cursor-pointer">
 	<img class="block group-hover:opacity-30 transition-opacity" {src} {alt} />
 	<div
-		class="absolute opacity-0 group-hover:opacity-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+		class="absolute opacity-0 group-hover:opacity-100 h-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
 	>
-		<h3 class="text-black mx-auto">{alt}</h3>
+		<h3 class="text-black mx-auto h-full">{alt}</h3>
 	</div>
 </div>
