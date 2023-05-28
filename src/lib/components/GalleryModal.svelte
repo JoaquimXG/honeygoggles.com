@@ -3,7 +3,6 @@
 	import GalleryModalArrow from './GalleryModalArrow.svelte';
 
 	export let imageIndex: number;
-	export let alt: string;
 	export let open: boolean;
 	export let images: Image[];
 
@@ -12,6 +11,7 @@
 
 	const IMAGE_FOLDER = '/images/';
 	$: src = IMAGE_FOLDER + images[imageIndex].name;
+	$: image = images[imageIndex];
 
 	const close = () => {
 		open = false;
@@ -43,9 +43,12 @@
 	<div
 		on:click|stopPropagation
 		on:keydown|stopPropagation
-		class="cursor-default modal-box p-2 relative max-h-4/5"
+		class="cursor-default modal-box p-6 px-11 relative max-h-4/5 prose"
 	>
-		<img {src} {alt} class="rounded-lg h-full" />
+		<h3 class="text-info">{image.title}</h3>
+		<p class="text-primary-content">{image.caption.slice(0, 100)}</p>
+
+		<img id="modal-image" {src} alt={image.title} class="rounded-lg h-full mt-4" />
 	</div>
 	<GalleryModalArrow
 		on:click={navigateRight}

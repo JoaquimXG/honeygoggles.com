@@ -66,7 +66,7 @@
 	}
 </script>
 
-<GalleryModal {images} bind:imageIndex={modalImageIndex} alt={modalAlt} bind:open={modalOpen} />
+<GalleryModal {images} bind:imageIndex={modalImageIndex} bind:open={modalOpen} />
 
 <div class="mt-6">
 	{#each columnConfigs as conf}
@@ -79,7 +79,7 @@
 				<div class="flex flex-col gap-2">
 					{#each imageColumn as image}
 						<a href="/images/{image.name}" on:click={(e) => handleSelect(image, 'TODO', e)}
-							><GalleryImage {image} alt="TODO" /></a
+							><GalleryImage {image}/></a
 						>
 					{/each}
 				</div>
