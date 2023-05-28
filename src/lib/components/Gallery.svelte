@@ -4,15 +4,6 @@
 
 	export let images: string[];
 
-	// function splitToNChunks(array: string[], n: number): string[][] {
-	// 	let copy = [...array];
-	// 	let result: string[][] = [];
-	// 	for (let i = n; i > 0; i--) {
-	// 		result.push(copy.splice(0, Math.ceil(copy.length / i)));
-	// 	}
-	// 	return result;
-	// }
-
 	function splitToNChunks(array: string[], n: number): string[][] {
 		let copy = [...array];
 		let result: string[][] = [];
@@ -53,7 +44,6 @@
 		}
 	];
 
-	let modalImage = '';
 	let modalAlt = '';
 	let modalOpen = false;
 	let modalImageIndex = 0;
@@ -67,7 +57,6 @@
 		modalOpen = false;
 		if (e.type === 'keydown' && (e as KeyboardEvent).key !== 'Enter') return;
 		modalAlt = alt;
-		modalImage = image;
 		modalImageIndex = images.indexOf(image);
 		modalOpen = true;
 	}
