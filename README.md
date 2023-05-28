@@ -4,4 +4,3 @@
 - Image procesing
 - Blog page
 - About page
-- GH Actions
