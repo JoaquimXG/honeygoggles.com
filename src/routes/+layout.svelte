@@ -1,15 +1,9 @@
-<script>
+<script lang="ts">
 	import '../app.css';
 	import NavLink from '$lib/components/NavLink.svelte';
 	import BurgerMenu from '$lib/icons/BurgerMenu.svelte';
 	import Logo from '$lib/components/Logo.svelte';
-	
-	let menu = [
-		{href: "/", text: "Home", hideMobile: true},
-		{href: "/comics", text: "Comics"},
-		{href: "/illustrations", text: "Illustrations"},
-	]
-
+	import menu from '$lib/config/menu';
 </script>
 
 <div class="mx-auto p-6">
@@ -29,7 +23,10 @@
 				<label tabindex="0" class="btn btn-ghost md:hidden">
 					<BurgerMenu />
 				</label>
-				<ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-200 rounded-box w-52">
+				<ul
+					tabindex="0"
+					class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-200 rounded-box w-52"
+				>
 					{#each menu as menuItem}
 						<li>
 							<a href={menuItem.href}>{menuItem.text}</a>
