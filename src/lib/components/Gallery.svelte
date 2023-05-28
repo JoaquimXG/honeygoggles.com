@@ -1,14 +1,18 @@
 <script lang="ts">
+	import type { Image } from '$lib/types/Image';
 	import GalleryImage from './GalleryImage.svelte';
 	import GalleryModal from './GalleryModal.svelte';
 
-	export let images: string[];
+	export let allImages: Image[];
+	export let selection: string[];
 
-	function splitToNChunks(array: string[], n: number): string[][] {
+	let images = allImages.filter((image) => selection.includes(image.name));
+
+	function splitToNChunks(array: Image[], n: number): Image[][] {
 		let copy = [...array];
-		let result: string[][] = [];
+		let result: Image[][] = [];
 		for (let i = 0; i < n; i++) {
-			let chunk: string[] = [];
+			let chunk: Image[] = [];
 			for (let j = i; j < copy.length; j = j + n) {
 				chunk.push(copy[j]);
 			}
@@ -47,7 +51,7 @@
 	let modalAlt = '';
 	let modalOpen = false;
 	let modalImageIndex = 0;
-	function handleSelect(image: string, alt: string, e: Event) {
+	function handleSelect(image: Image, alt: string, e: Event) {
 		/**
 		 * Progressive enhancement
 		 *  If JavaScript is enabled, when the image is selected we open a model to flick through images
@@ -57,12 +61,12 @@
 		modalOpen = false;
 		if (e.type === 'keydown' && (e as KeyboardEvent).key !== 'Enter') return;
 		modalAlt = alt;
-		modalImageIndex = images.indexOf(image);
+		modalImageIndex = images.findIndex((_image) => image.name == _image.name);
 		modalOpen = true;
 	}
 </script>
 
-<GalleryModal {images} bind:imageIndex={modalImageIndex} alt={modalAlt} bind:open={modalOpen} />
+<GalleryModal {images} bind:imageIndex={modalImageIndex} bind:open={modalOpen} />
 
 <div class="mt-6">
 	{#each columnConfigs as conf}
@@ -74,8 +78,8 @@
 			{#each conf.imageColumns as imageColumn}
 				<div class="flex flex-col gap-2">
 					{#each imageColumn as image}
-						<a href="/images/{image}" on:click={(e) => handleSelect(image, 'TODO', e)}
-							><GalleryImage {image} alt="TODO" /></a
+						<a href="/images/{image.name}" on:click={(e) => handleSelect(image, 'TODO', e)}
+							><GalleryImage {image}/></a
 						>
 					{/each}
 				</div>
