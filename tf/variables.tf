@@ -49,7 +49,51 @@ variable "certificate_id" {
 }
 
 variable "use_www" {
-  type = bool
-  default = true
+  type        = bool
+  default     = true
   description = "If true, use www.domain as an additional cloudfront alias. This should be avoided if the certificate used does not cover the www domain"
+}
+
+
+# Media Bucket and Cert
+variable "DEPLOY_MEDIA_BUCKET" {
+  type        = bool
+  description = "If true, create a second bucket for media files"
+  default     = false
+}
+
+variable "media_bucket_tags" {
+  type        = map(string)
+  description = "Tags to apply to the site bucket"
+  default     = {}
+}
+
+variable "media_distribution_tags" {
+  type        = map(string)
+  description = "Tags to apply to the site distribution"
+  default     = {}
+}
+
+variable "media_s3_origin_id" {
+  type        = string
+  description = "A unique identifier for the origin linking CloudFront and S3. (Just a name, can be any string)"
+  default = null
+}
+
+variable "media_bucket_name" {
+  type        = string
+  description = "Bucket name for site bucket"
+  default = null
+}
+
+variable "media_domain" {
+  type        = string
+  description = "Root domain for site . Must be managed in AWS Route53"
+  default = null
+}
+
+variable "media_subdomain" {
+  type        = string
+  description = "Subdomain for the site bucket"
+  default = null
 }

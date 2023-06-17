@@ -45,3 +45,23 @@ module "site" {
   acm_cert_id  = var.certificate_id
   use_www      = var.use_www
 }
+
+
+module "media" {
+  count = var.DEPLOY_MEDIA_BUCKET ? 1 : 0
+
+  source = "./s3-site"
+
+  bucket_tags       = var.media_bucket_tags
+  distribution_tags = var.media_distribution_tags
+
+  dns = {
+    domain    = var.media_domain
+    subdomain = var.media_subdomain
+  }
+
+  bucket_name  = var.media_bucket_name
+  s3_origin_id = var.media_s3_origin_id
+  acm_cert_id  = var.certificate_id
+  use_www      = false
+}
