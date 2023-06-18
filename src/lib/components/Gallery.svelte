@@ -1,18 +1,19 @@
 <script lang="ts">
-	import type Image from '$lib/types/Image';
+	import settings from '$lib/settings/public';
 	import GalleryImage from './GalleryImage.svelte';
 	import GalleryModal from './GalleryModal.svelte';
 
-	export let allImages: Image[];
-	export let selection: string[];
+	import type { Gallery as TGallery, GalleryImage as TGalleryImage } from '$lib/types/cms/';
 
-	let images = allImages.filter((image) => selection.includes(image.name));
+	export let gallery: TGallery;
 
-	function splitToNChunks(array: Image[], n: number): Image[][] {
+	let images = gallery.Images.map((image) => image.GalleryImage_id);
+
+	function splitToNChunks(array: TGalleryImage[], n: number): TGalleryImage[][] {
 		let copy = [...array];
-		let result: Image[][] = [];
+		let result: TGalleryImage[][] = [];
 		for (let i = 0; i < n; i++) {
-			let chunk: Image[] = [];
+			let chunk: TGalleryImage[] = [];
 			for (let j = i; j < copy.length; j = j + n) {
 				chunk.push(copy[j]);
 			}
@@ -48,10 +49,9 @@
 		}
 	];
 
-	let modalAlt = '';
 	let modalOpen = false;
 	let modalImageIndex = 0;
-	function handleSelect(image: Image, alt: string, e: Event) {
+	function handleSelect(image: TGalleryImage, e: Event) {
 		/**
 		 * Progressive enhancement
 		 *  If JavaScript is enabled, when the image is selected we open a model to flick through images
@@ -60,8 +60,7 @@
 		e.preventDefault();
 		modalOpen = false;
 		if (e.type === 'keydown' && (e as KeyboardEvent).key !== 'Enter') return;
-		modalAlt = alt;
-		modalImageIndex = images.findIndex((_image) => image.name == _image.name);
+		modalImageIndex = images.findIndex((_image: TGalleryImage) => image == _image);
 		modalOpen = true;
 	}
 </script>
@@ -78,8 +77,10 @@
 			{#each conf.imageColumns as imageColumn}
 				<div class="flex flex-col gap-2">
 					{#each imageColumn as image}
-						<a href="/images/{image.name}" on:click={(e) => handleSelect(image, 'TODO', e)}
-							><GalleryImage {image} /></a
+						<!--TODO this a tag should relate to an existing sveltekit route, not directly link to S3 bucket, clicking this should open the modal -->
+						<a
+							href="{settings.MEDIA_ROOT}/{image.Image.filename_disk}"
+							on:click={(e) => handleSelect(image, e)}><GalleryImage {image} /></a
 						>
 					{/each}
 				</div>

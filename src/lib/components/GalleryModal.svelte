@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type Image from '$lib/types/Image';
+	import type { GalleryImage } from '$lib/types/cms/';
 	import GalleryModalArrow from './GalleryModalArrow.svelte';
+	import settings from '$lib/settings/public';
 
 	export let imageIndex: number;
 	export let open: boolean;
-	export let images: Image[];
+	export let images: GalleryImage[];
 
 	$: showLeft = imageIndex > 0;
 	$: showRight = imageIndex < images.length - 1;
 
-	const IMAGE_FOLDER = '/images/';
-	$: src = IMAGE_FOLDER + images[imageIndex].name;
+	$: src = settings.MEDIA_ROOT + '/' + images[imageIndex].Image.filename_disk;
 	$: image = images[imageIndex];
 
 	const close = () => {
@@ -36,23 +36,21 @@
 >
 	<GalleryModalArrow
 		on:click={navigateLeft}
-		on:keydown={navigateLeft}
 		direction="left"
 		bind:show={showLeft}
 	/>
 	<div
 		on:click|stopPropagation
 		on:keydown|stopPropagation
-		class="cursor-default modal-box p-6 px-11 relative max-h-4/5 prose"
+		class="cursor-default max-w-screen-md w-5/6 modal-box p-6 px-11 relative max-h-4/5 prose"
 	>
-		<h3 class="text-info">{image.title}</h3>
-		<p class="text-primary-content">{image.caption.slice(0, 100)}</p>
+		<h3 class="text-info">{image.Title}</h3>
+		<p class="text-primary-content">{image.Blurb}</p>
 
-		<img id="modal-image" {src} alt={image.title} class="rounded-lg h-full mt-4" />
+		<img id="modal-image" {src} alt={image.title} class="rounded-lg h-full w-full mt-4" />
 	</div>
 	<GalleryModalArrow
 		on:click={navigateRight}
-		on:keydown={navigateRight}
 		direction="right"
 		bind:show={showRight}
 	/>

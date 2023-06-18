@@ -3,7 +3,7 @@
 	export let show: boolean;
 
 	let baseClasses =
-		'w-8 transition-all focus:bg-black hover:bg-black fill-black focus:fill-white hover:fill-white rounded-full p-2';
+		'w-8 transition-all hover:bg-black fill-black hover:fill-white rounded-full p-2';
 	let classes = baseClasses + (direction === 'left' ? ' mr-2' : ' ml-2');
 </script>
 
