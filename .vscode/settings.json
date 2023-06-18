@@ -3,5 +3,6 @@
     "a11y-no-noninteractive-tabindex": "ignore",
     "a11y-label-has-associated-control": "ignore"
   },
-  "ansible.python.interpreterPath": "/bin/python3.10"
+  "ansible.python.interpreterPath": "/bin/python3.10",
+  "prettier.prettierPath": "./node_modules/prettier",
 }
