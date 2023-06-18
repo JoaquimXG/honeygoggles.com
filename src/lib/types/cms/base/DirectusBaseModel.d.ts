@@ -1,5 +1,7 @@
+import type { ID } from '@directus/sdk';
+
 type DirectusBaseModel = {
-	id: number;
+	id: ID;
 	date_created: string;
 	date_updated: string;
 	user_created: string;

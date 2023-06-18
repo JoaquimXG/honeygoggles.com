@@ -6,3 +6,5 @@ type Gallery = {
 	Images: GalleryImage[];
 } & BaseDirectusModel &
 	DirectusStatus;
+
+export default Gallery;
